@@ -119,7 +119,7 @@
                         <div class="row">
                             <div class="col-sm-4 col-sm-offset-8">
                                 <p class="text-right">
-                                    <a href="/admin" class="btn btn-default">
+                                    <a href="{{ route('rest.get', $restaurant->id) }}" class="btn btn-default">
                                         Cancelar
                                     </a>
                                     <button class="btn btn-success">

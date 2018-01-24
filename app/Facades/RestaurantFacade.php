@@ -7,7 +7,7 @@ use Illuminate\Support\Facades\Facade;
  *
  * @author Administrator
  */
-class Restaurant extends Facade{
+class RestaurantFacade extends Facade{
     //put your code here
     protected static function getFacadeAccessor() { return 'restaurant'; }
 }

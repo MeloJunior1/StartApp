@@ -2,9 +2,11 @@
 
 namespace App\Http\Controllers;
 
+use App\Utils\FileUpload;
 use App\DAO\RestaurantDAO;
-use App\Traits\RestaurantTrait;
 use Illuminate\Http\Request;
+use App\Utils\ImageHandleUtil;
+use App\Traits\RestaurantTrait;
 
 class RestaurantsController extends Controller
 {
@@ -79,6 +81,11 @@ class RestaurantsController extends Controller
         return view('admin.restaurants.edit', compact('restaurant', 'categories'));
     }
 
+    /**
+     * função que permite a persistencia dos dados com base na request
+     * 
+     * @param Illuminate\Http\Request $request
+     */
     public function update(Request $request)
     {
         $this->validator($request->all())->validate();
@@ -88,5 +95,34 @@ class RestaurantsController extends Controller
         return redirect()
                 ->route('rest.edit', $request->only('id'))
                 ->with('success', 'Restaurante atualizado com sucesso!');
+    }
+
+    /**
+     * Upload imagens -Restaurante-
+     * 
+     * @param Illuminate\Http\Request $request
+     */
+    public function imageUpload(Request $request)
+    {
+        $this->imageValidator($request->all())->validate();
+
+        $imageHandle = new ImageHandleUtil($request->file('image'), 400, 400, 'eaeaea');        
+
+        $data = array(
+            'id' => $request->id,
+            'image' => $imageHandle->adjustImage()
+        );
+
+        if($this->dao->uploadRestaurantImage($data, new FileUpload()))
+        {
+            $imageHandle->removeImage();
+            
+            return back()
+                    ->with('success', 'Imagem alterada com sucesso');
+        }
+        else
+        {
+            $imageHandle->removeImage();
+        }        
     }
 }

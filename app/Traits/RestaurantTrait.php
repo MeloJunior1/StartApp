@@ -7,8 +7,16 @@ use Illuminate\Support\Facades\Validator;
 
 trait RestaurantTrait {
 
-    public function validator(array $data) {
+    public function validator(array $data) 
+    {
         return Validator::make($data, $this->rules(), $this->messages());
+    }
+
+    public function imageValidator(array $data)
+    {
+        return Validator::make($data, [
+            'image' => 'required|image|mimes:jpeg,png,jpg,gif,svg',
+        ]);
     }
 
     public function restaurantCategories()

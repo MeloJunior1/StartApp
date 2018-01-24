@@ -7,7 +7,7 @@
 @endsection
 
 @section('content')
-    <div class="normalheader">
+    <div class="small-header">
         <div class="hpanel">
             <div class="panel-body">
                 <a class="small-header-action" href="">
@@ -16,7 +16,7 @@
                     </div>
                 </a>
 
-                <div id="hbreadcrumb" class="pull-right m-t-lg">
+                <div id="hbreadcrumb" class="pull-right">
                     <ol class="hbreadcrumb breadcrumb">
                         <li><a href="/admin">Incio</a></li>
                         <li>
@@ -37,9 +37,46 @@
     <div class="content">
         <div class="row">
             <div class="col-lg-4">
+                @if(count($errors) > 0)
+                    <div class="alert alert-danger">
+                        <strong>Alerta! </strong> Ocorreram erros ao tentar esta ação:
+                        <ul>
+                            @foreach($errors->all() as $error)
+                                <li>{{ $error }}</li>
+                            @endforeach
+                        </ul>
+                    </div>
+                @endif
+                @if($message = Session::get('success'))
+                    <div class="alert alert-success">
+                        <button type="button" class="close" data-dismiss="alert">×</button>
+                        <strong>{{ $message }}</strong> 
+                    </div>
+                @endif
                 <div class="hpanel hgreen">   
-                    <div class="border-right border-left">                        
-                        <img src="{{ asset('/vendor/images/nonImage.png') }}" alt="" class="profileImage">
+                    <div class="border-right border-left imageWrapper">   
+                        {!! Form::open(['route' => 'rest.send.img', 
+                                        'method' => 'post', 
+                                        'id' => 'uploadImage',
+                                        'enctype' => 'multipart/form-data']) !!}   
+                                          
+                            {!! Form::hidden('id', $restaurant->id) !!}
+                            <input type="file" name="image" id="file" class="inputfile" />
+                            <label  for="file" 
+                                    class="inputFileTarget btn btn-default"
+                                    data-toggle="tooltip"
+                                    data-placement="left"
+                                    title="" 
+                                    data-original-title="Adicionar imagem">
+                                <i class="fa fa-upload" aria-hidden="true"></i>
+                            </label>
+                        {!! Form::close() !!} 
+
+                        @if(empty($restaurant->image))
+                            <img src="{{ asset('/vendor/images/nonImage.png') }}" width="500" heigth="500" class="profileImage">
+                        @else
+                            <img src="{{ $restaurant->image }}" alt="restaurant_image" class="profileImage">
+                        @endif
                     </div>                 
                     <div class="panel-body"> 
                         <div class="pull-right text-right">
@@ -98,6 +135,17 @@
 @endsection
 @section('scripts')
     <script>
-        $('[data-toggle="tooltip"]').tooltip()
+        $('[data-toggle="tooltip"]').tooltip();
+
+        $("#file").change((e) => {
+            if(e.currentTarget.value)
+            {
+                var inputTarget = $('.inputFileTarget');
+                inputTarget.removeClass('btn-default').addClass('btn-success');
+                inputTarget.children().first().removeClass('fa-upload').addClass('fa-spinner fa-spin');
+
+                $('#uploadImage').submit();
+            }
+        })
     </script>
 @endsection

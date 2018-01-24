@@ -47,11 +47,30 @@ trait Context {
     {
         try
         {
-            return $this->model->findOrFail($id)->update($data);
+            return $this->model->findOrFail($id)->update($this->removeId($data));
         }
         catch(Exception $e)
         {
             throw $e;
         }
+    }
+
+    protected function removeId(array $data)
+    {
+        try 
+        {
+            if(isset($data['id']))
+            {
+                if(!is_null($data['id']) || !empty($data['id'])) unset($data['id']);
+            }
+            
+            return $data;
+            
+        }
+        catch(Exception $e)
+        {
+            throw $e;
+        }
+        
     }
 }

@@ -19,6 +19,7 @@ class CreateRestaurantsTable extends Migration
             $table->string('cnpj', 20)->unique();
             $table->string('telefone', 20);
             $table->string('cep', 15);
+            $table->string('image', 150)->nullable();
             $table->string('cidade', 100);
             $table->string('uf', 2);
 
