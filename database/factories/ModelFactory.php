@@ -28,3 +28,24 @@ $factory->define(App\Models\Category::class, function (Faker $faker) {
         'numero' => $faker->randomDigit,
     ];
 });
+
+$factory->define(App\Models\Restaurant::class, function (Faker $faker) {
+    return [
+        'nome' => $faker->firstNameMale,
+        'cnpj' => $faker->ean13,
+        'telefone' => $faker->phoneNumber,
+        'cep' => $faker->postcode,
+        'cidade' => $faker->city,
+        'uf' => $faker->stateAbbr,
+        'dono' => $faker->randomDigit
+    ];
+});
+
+$factory->define(App\Models\Dish::class, function (Faker $faker) {
+    return [
+        'name' => $faker->name,
+        'description' => $faker->text(200),
+        'value' => $faker->randomFloat(2, 1, 100),
+        'restaurant_id' => $faker->randomDigit
+    ];
+});

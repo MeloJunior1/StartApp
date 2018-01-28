@@ -11,8 +11,6 @@ use App\Traits\RestaurantTrait;
 class RestaurantsController extends Controller
 {
     use RestaurantTrait;
-    
-    protected $dao;
 
     public function __construct() 
     {
@@ -108,21 +106,13 @@ class RestaurantsController extends Controller
 
         $imageHandle = new ImageHandleUtil($request->file('image'), 400, 400, 'eaeaea');        
 
-        $data = array(
-            'id' => $request->id,
-            'image' => $imageHandle->adjustImage()
-        );
+        $data = array('id' => $request->id, 'image' => $imageHandle->adjustImage());
 
         if($this->dao->uploadRestaurantImage($data, new FileUpload()))
         {
-            $imageHandle->removeImage();
-            
-            return back()
-                    ->with('success', 'Imagem alterada com sucesso');
+            $imageHandle->removeImage();            
+            return back()->with('success', 'Imagem alterada com sucesso');
         }
-        else
-        {
-            $imageHandle->removeImage();
-        }        
+        else $imageHandle->removeImage();        
     }
 }

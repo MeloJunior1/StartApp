@@ -72,8 +72,8 @@
                             </label>
                         {!! Form::close() !!} 
 
-                        @if(empty($restaurant->image))
-                            <img src="{{ asset('/vendor/images/nonImage.png') }}" width="500" heigth="500" class="profileImage">
+                        @if(empty($restaurant->image) || is_null($restaurant->image))
+                            <img src="{{ asset('/vendor/images/nonImage.png') }}" class="profileImage">
                         @else
                             <img src="{{ $restaurant->image }}" alt="restaurant_image" class="profileImage">
                         @endif
@@ -81,11 +81,11 @@
                     <div class="panel-body"> 
                         <div class="pull-right text-right">
                             <div class="btn-group">
-                                <a  href="#" class="btn btn-default btn-sm" 
+                                <a  href="{{ route('rest.dishes', $restaurant->id) }}" class="btn btn-default btn-sm" 
                                     data-toggle="tooltip" 
                                     data-placement="top" 
                                     title="" 
-                                    data-original-title="Menus">
+                                    data-original-title="Pratos">
                                     <i class="fa fa-list-alt" aria-hidden="true"></i>
                                 </a>
                                 <a href="{{ route('rest.edit', $restaurant->id) }}" class="btn btn-default btn-sm"
@@ -94,7 +94,7 @@
                                     data-original-title="Editar">
                                     <i class="fa fa-pencil" aria-hidden="true"></i>
                                 </a>
-                                <a href="#" class="btn btn-default btn-sm"
+                                <a href="{{ route('settings', $restaurant->id) }}" class="btn btn-default btn-sm"
                                     data-toggle="tooltip"
                                     data-placement="top"
                                     data-original-title="Configurações">

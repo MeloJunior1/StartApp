@@ -2,10 +2,17 @@
 
 namespace App\Traits;
 
-use App\Http\Controllers\CategoriesController;
+use Restaurant;
+use App\DAO\RestaurantDAO;
 use Illuminate\Support\Facades\Validator;
+use App\Http\Controllers\CategoriesController;
 
 trait RestaurantTrait {
+
+    public function restaurant($restaurant_id)
+    {
+        return Restaurant::findOne($restaurant_id);
+    }
 
     public function validator(array $data) 
     {

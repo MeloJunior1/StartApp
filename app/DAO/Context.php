@@ -55,6 +55,21 @@ trait Context {
         }
     }
 
+    public function deleteById($id)
+    {
+        try
+        {
+            $this->findOne($id);
+            $this->model->where('id', $id)->delete();
+            
+            return null;
+        }
+        catch(Exception $e)
+        {
+            throw $e;
+        }
+    }
+
     protected function removeId(array $data)
     {
         try 
@@ -70,7 +85,6 @@ trait Context {
         catch(Exception $e)
         {
             throw $e;
-        }
-        
+        }        
     }
 }

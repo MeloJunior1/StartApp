@@ -26,6 +26,20 @@ Route::group(['prefix' => 'admin',], function () {
 
         Route::post('/send/image', 'RestaurantsController@imageUpload')->name('rest.send.img');
 
+        Route::group(['prefix' => '{restaurant_id}/dishes'], function () {
+            Route::get('/', 'DishesController@index')->name('rest.dishes');
+
+            Route::get('/new', 'DishesController@new')->name('rest.new.dishes');
+            Route::post('/store', 'DishesController@store')->name('rest.store.dishes');
+        });
+
+        Route::group(['prefix' => '{restaurant_id}/settings'], function(){
+            Route::get('/', 'SettingsController@index')->name('settings');
+            Route::post('/save/category', 'SettingsController@saveCategory')->name('settings.save.category');
+            Route::put('/edit/category', 'SettingsController@editCategory')->name('settings.edit.category');
+            Route::delete('/remove/category', 'SettingsController@removeCategory')->name('setting.remove.category');
+        });
+
         /*Exibe as informacoes do restaurante */
         Route::get('/{id}', 'RestaurantsController@get')->name('rest.get');
     });
