@@ -35,9 +35,13 @@ Route::group(['prefix' => 'admin',], function () {
 
         Route::group(['prefix' => '{restaurant_id}/settings'], function(){
             Route::get('/', 'SettingsController@index')->name('settings');
-            Route::post('/save/category', 'SettingsController@saveCategory')->name('settings.save.category');
-            Route::put('/edit/category', 'SettingsController@editCategory')->name('settings.edit.category');
-            Route::delete('/remove/category', 'SettingsController@removeCategory')->name('setting.remove.category');
+
+            Route::post('/save/category', 'SettingsController@saveDefinition')->name('settings.save.category');
+            Route::post('/save/grade', 'SettingsController@saveDefinition')->name('settings.save.grade');
+            
+            Route::put('/edit/definition', 'SettingsController@editDefinition')->name('settings.edit.definition');
+            Route::delete('/remove/definition', 'SettingsController@removeDefinition')->name('setting.remove.definition');
+
         });
 
         /*Exibe as informacoes do restaurante */

@@ -47,7 +47,18 @@ class DishesController extends Controller
     {
         $this->restaurant = $this->restaurant($restaurant_id);
 
-        return view('admin.restaurants.dishes.new', array('restaurant' => $this->restaurant));
+        $definitions = array(
+            'categories' => array_column($this->restaurant->dishDefinitions()->where('type', 1)->get()->toArray(), 'name'),
+            'grades' => array_column($this->restaurant->dishDefinitions()->where('type', 2)->get()->toArray(), 'name'),
+        );
+
+        $validation = $this->verifyDefinitions($definitions);
+
+        if(!empty($validation))
+            return view('admin.restaurants.dishes.new', array('restaurant' => $this->restaurant, 'definitions' => $definitions))
+                    ->withErrors($validation);
+
+        return view('admin.restaurants.dishes.new', array('restaurant' => $this->restaurant, 'definitions' => $definitions));
     }
 
     public function store(Request $request, $restaurant_id)

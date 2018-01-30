@@ -44,10 +44,18 @@
                 <div class="panel-header hbuilt">
                     Formulário de novo prato
                 </div>
-                @if($errors->any())
+                @if($errors->any() && !$errors->has('de-category') && !$errors->has('de-grade'))
                     <div class="alert alert-danger">
-                        Há erros no formulário
                         <i class="fa fa-exclamation" aria-hidden="true"></i>
+                        Há erros no formulário
+                    </div>
+                @endif
+                @if($errors->has('de-category') || $errors->has('de-grade'))
+                    <div class="alert alert-danger">
+                        <i class="fa fa-exclamation" aria-hidden="true"></i>
+                        {{ $errors->first('de-category') }}
+                        {{ $errors->first('de-grade') }}                        
+                        Vá em <strong><a href="{{ route('settings', $restaurant->id) }}">Configurações > Categorias e Grades</a></strong> e as defina.
                     </div>
                 @endif
                 @if(session('success'))
@@ -63,7 +71,7 @@
                         'enctype' => 'multipart/form-data']) !!}
 
                         <div class="row">
-                            <div class="col-md-8">
+                            <div class="col-md-5">
                                 <div class="form-group {{ $errors->has('name') ? 'has-error' : '' }}">
                                     {!! Form::label('name', 'Nome') !!}
                                     {!! Form::text('name', null, [
@@ -75,14 +83,18 @@
                             <div class="col-md-4">
                                 <div class="form-group {{ $errors->has('category') ? 'has-error' : '' }}">
                                     {!! Form::label('category', 'Categoria') !!}
-                                    {!! Form::select('category', [
-                                        '1' => 'Pizzas salgadas',
-                                        '2' => 'Pizzas doces',
-                                        '3' => 'Lanches',
-                                        '4' => 'Bebidas'
-                                    ], null, [
+                                    {!! Form::select('category', $definitions['categories'], null, [
                                         'class' => 'form-control',
-                                        'placeholder' => 'Selecione uma categoria'
+                                        'placeholder' => 'Selecione ...'
+                                    ]) !!}
+                                </div>
+                            </div>
+                            <div class="col-md-3">
+                                <div class="form-group {{ $errors->has('grade') ? 'has-error' : '' }}">
+                                    {!! Form::label('grade', 'Grade') !!}
+                                    {!! Form::select('grade[]', $definitions['grades'], null, [
+                                        'class' => 'form-control',
+                                        'multiple',
                                     ]) !!}
                                 </div>
                             </div>
@@ -113,14 +125,16 @@
                             <div class="col-lg-4">
                                 <div class="form-group">
                                     <label for="image" class="btn btn-block btn-primary {{ $errors->has('value') ? 'text-danger' : '' }}">Escolha uma imagem</label>
-                                    {!! Form::file('image', ['class' => 'inputfile']) !!}
+                                    {!! Form::file('image', ['class' => 'inputfile', 'id' => 'image']) !!}
                                 </div>
                             </div>
-                            <div class="col-lg-4 text-right">
-                                {!! Form::submit('Salvar novo prato', [
-                                    'class' => 'btn btn-block btn-success'
-                                ]) !!}
-                            </div>
+                            @if(!$errors->has('de-category') || !$errors->has('de-grade'))
+                                <div class="col-lg-4 text-right">
+                                    {!! Form::submit('Salvar novo prato', [
+                                        'class' => 'btn btn-block btn-success'
+                                    ]) !!}
+                                </div>
+                            @endif
                         </div>
                     {!! Form::close() !!}
                 </div>
@@ -133,9 +147,5 @@
 
 @section('scripts')
     <script src="{{ asset('/vendor/select2/dist/js/select2.min.js') }}"></script>
-    <script>
-        $('select').select2({
-            theme: "bootstrap",
-        });
-    </script>
+    <script src="{{ asset('/vendor/scripts/dishes.new.js') }}"></script>
 @endsection

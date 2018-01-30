@@ -59,10 +59,10 @@ trait Context {
     {
         try
         {
-            $this->findOne($id);
+            $data = $this->findOne($id);
             $this->model->where('id', $id)->delete();
             
-            return null;
+            return $data;
         }
         catch(Exception $e)
         {

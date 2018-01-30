@@ -2,13 +2,7 @@
 
 @section('title', $restaurant->nome . ' Configurações')
 
-@section('styles')
-    <link rel="stylesheet" href="{{ asset('/vendor/datatables.net-bs/css/dataTables.bootstrap.min.css') }}">
-    <link rel="stylesheet" href="{{ asset('/vendor/x-editable/dist/bootstrap3-editable/css/bootstrap-editable.css') }}">
-@endsection
-
 @section('content')
-
     @component('layouts.header')
         @slot('breadcums')
             <li>
@@ -45,10 +39,4 @@
         </div>
     </div>
 
-@endsection
-
-@section('scripts')
-    <script src="{{ asset('/vendor/datatables.net/js/jquery.dataTables.min.js') }}"></script>
-    <script src="{{ asset('/vendor/datatables.net-bs/js/dataTables.bootstrap.min.js') }}"></script>
-    <script src="{{ asset('/vendor/x-editable/dist/bootstrap3-editable/js/bootstrap-editable.js') }}"></script>
 @endsection

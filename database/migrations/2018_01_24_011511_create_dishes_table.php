@@ -21,8 +21,8 @@ class CreateDishesTable extends Migration
             $table->decimal('value');
             $table->string('image')->nullable();
             
-            $table->integer('dish_category_id')->unsigned();
-            $table->foreign('dish_category_id')->references('id')->on('dish_categories');
+            $table->integer('dish_definitions_id')->unsigned();
+            $table->foreign('dish_definitions_id')->references('id')->on('dish_definitions');
 
             $table->integer('restaurant_id')->unsigned();
             $table->foreign('restaurant_id')->references('id')->on('restaurants');

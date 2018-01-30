@@ -32,9 +32,9 @@ class Restaurant extends Model
         return $this->hasMany('App\Models\Dish');
     }
 
-    public function dish_categories()
+    public function dishDefinitions()
     {
-        return $this->hasMany('App\Models\DishCategory');
+        return $this->hasMany('App\Models\DishDefinition');
     }
 
     public function getImageAttribute($value)

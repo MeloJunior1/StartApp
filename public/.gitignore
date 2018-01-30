@@ -1,2 +1,13 @@
-/vendor
+/vendor/animate.css
+/vendor/bootstrap
+/vendor/datatables.net
+/vendor/datatables.net-bs
+/vendor/font-awesome
+/vendor/iCheck
+/vendor/jquery
+/vendor/jquery-slimscroll
+/vendor/metisMenu
+/vendor/select2
+/vendor/select2-bootstrap-theme
+/vendor/x-editable
 /temp

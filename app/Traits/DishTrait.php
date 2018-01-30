@@ -15,4 +15,14 @@ trait DishTrait
             'description' => 'required|min:5'
         ]);
     }
+
+    public function verifyDefinitions(array $definitions)
+    {
+        $messages = array();
+
+        if(empty($definitions['categories'])) $messages = array_merge($messages, ['de-category' => 'Categorias não definidas. ']);
+        if(empty($definitions['grades'])) $messages = array_merge($messages, ['de-grade' => 'Grades não definidas. ']);
+
+        return $messages;
+    }
 }

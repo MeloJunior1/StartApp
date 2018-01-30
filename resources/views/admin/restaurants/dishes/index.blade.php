@@ -50,8 +50,8 @@
                             <strong>Aceitação geral</strong>
                         </p>
                         <div class="progress full m-t-xs">
-                            <div style="width: 65%" aria-valuemax="100" aria-valuemin="0" aria-valuenow="65" role="progressbar" class=" progress-bar progress-bar-info">
-                                65%
+                            <div style="width: 0%" aria-valuemax="100" aria-valuemin="0" aria-valuenow="65" role="progressbar" class=" progress-bar progress-bar-info">
+                                
                             </div>
                         </div>
                         <small>

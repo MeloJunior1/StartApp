@@ -5,7 +5,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
-class DishCategory extends Model
+class DishDefinition extends Model
 {
 
     use SoftDeletes;
@@ -13,7 +13,7 @@ class DishCategory extends Model
     protected $dates = ['deleted_at'];
 
     protected $fillable = [
-        'name', 'restaurant_id'
+        'name', 'restaurant_id', 'type'
     ];
 
     public function restaurant()

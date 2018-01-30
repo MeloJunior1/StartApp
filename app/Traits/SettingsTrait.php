@@ -6,8 +6,13 @@ use Validator;
 
 trait SettingsTrait
 {
-    public function categoryValidator(array $data) 
+    public function definitionsValidator(array $data) 
     {
-        return Validator::make($data, ['name' => 'required|min:2', 'restaurant_id' => 'required']);
+        return Validator::make($data, ['name' => 'required', 'restaurant_id' => 'required']);
+    }
+
+    public function editDefinitionsValidator(array $data)
+    {
+        return Validator::make($data, ['name' => 'required']);
     }
 }
