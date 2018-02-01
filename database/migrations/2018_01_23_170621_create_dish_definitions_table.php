@@ -34,6 +34,6 @@ class CreateDishDefinitionsTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('dish_categories');
+        Schema::dropIfExists('dish_definitions');
     }
 }

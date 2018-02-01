@@ -68,31 +68,42 @@
                                 <div class="col-lg-4">
                                     <div class="hpanel hgreen contact-panel">
                                         <div class="panel-body">
-                                        <div class="pull-right text-right">
+                                            <div class="pull-right text-right">
                                                 <div class="btn-group">
-                                                    <a  href="#" 
-                                                        class="btn btn-primary btn-xs"
+                                                    <a  href="{{ route('rest.edit.dishes', ['dish_id' => $dish->id, 'restaurant_id' => $restaurant->id]) }}"
+                                                        class="btn btn-default btn-xs"
                                                         data-toggle="tooltip" 
                                                         data-placement="top" title="" 
                                                         data-original-title="Editar">
                                                         <i class="fa fa-pencil" aria-hidden="true"></i>
                                                     </a>
                                                     <a  href="#" 
-                                                        class="btn btn-danger btn-xs" 
+                                                        class="btn btn-default btn-xs" 
                                                         data-toggle="tooltip" 
                                                         data-placement="top" data-original-title="Remover">
                                                         <i class="fa fa-trash" aria-hidden="true"></i>
                                                     </a>
                                                 </div>
-                                                <p>
-                                                    <span class="label label-success">{{ $dish->category }}</span>
-                                                </p>
                                             </div>
-                                            <h3><a href=""> {{ $dish->name }} </a></h3>
-                                            <div class="text-muted font-bold m-b-xs">{{ $dish->value }}</div>
-                                            <p>
+                                            <h3><a href=""> {{ $dish->name }} </a></h3>                                            
+                                            <p class="text-muted m-t-xs">
                                                 {{ $dish->description }}
                                             </p>
+                                            <div class="text-muted font-bold m-t-md">
+                                                <div class="btn-group">
+                                                    @foreach($dish->dish_definitions as $definitions)
+                                                        @if($definitions->type == 2)
+                                                            <a  href="#" 
+                                                                class="btn btn-outline btn-success btn-xs"
+                                                                data-toggle="tooltip"
+                                                                data-placement="bottomx"
+                                                                data-original-title="R$ {{ $definitions->pivot->value }}">
+                                                                {{ $definitions->name }}
+                                                            </a>
+                                                        @endif
+                                                    @endforeach
+                                                </div>                                                
+                                            </div>
                                         </div>
                                         <div class="panel-footer contact-footer">
                                             <div class="row">

@@ -31,6 +31,8 @@ Route::group(['prefix' => 'admin',], function () {
 
             Route::get('/new', 'DishesController@new')->name('rest.new.dishes');
             Route::post('/store', 'DishesController@store')->name('rest.store.dishes');
+
+            Route::get('/edit/{dish_id}', 'DishesController@edit')->name('rest.edit.dishes');
         });
 
         Route::group(['prefix' => '{restaurant_id}/settings'], function(){
